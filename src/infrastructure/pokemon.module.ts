@@ -1,19 +1,21 @@
 import { Module } from '@nestjs/common';
-import { HttpModule } from '@nestjs/axios';
 import { PokemonController } from './api/pokemon/pokemon.controller';
 import { PokemonService } from './api/pokemon/pokemon.service';
 import { GetPokemonByColorUseCases } from '../application/use-cases/getPokemonByColor.usecase';
 import { GetPokemonByIdOrNameUseCase } from '../application/use-cases/getPokemonByIdOrName.usecase';
 import { GetPokemonPaginatedUseCase } from '../application/use-cases/getPokemonPaginated.usecase';
+import { AxiosHttpClient } from './http/axios-http-client';
+import { HttpClientModule } from './http/http-client.module';
 
 @Module({
-  imports: [HttpModule],
+  imports: [HttpClientModule],
   controllers: [PokemonController],
   providers: [
-    PokemonService,
+    { provide: 'HttpClient', useClass: AxiosHttpClient },
     { provide: 'IGetPokemonByColor', useClass: GetPokemonByColorUseCases },
     { provide: 'IGetPokemonByIdOrName', useClass: GetPokemonByIdOrNameUseCase },
     { provide: 'IGetPokemonPaginated', useClass: GetPokemonPaginatedUseCase },
+    PokemonService,
   ],
 })
 export class PokemonModule {}
