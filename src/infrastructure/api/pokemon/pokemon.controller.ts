@@ -22,7 +22,7 @@ export class PokemonController {
   }
 
   @Get('/')
-  public getPokemonPaginated(@Query('limit') limit: number, @Query('offset') offset: number) {
-    return this.pokemonPaginated.execute(limit, offset);
+  public getPokemonPaginated(@Query('offset') offset: number, @Query('limit') limit: number) {
+    return this.pokemonPaginated.execute(offset, limit);
   }
 }
