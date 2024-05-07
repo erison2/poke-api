@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { HttpModule } from '@nestjs/axios';
+import { HttpClientModule } from './infrastructure/http/http-client.module';
 import { PokemonModule } from './infrastructure/pokemon.module';
 
 @Module({
-  imports: [HttpModule, PokemonModule],
+  imports: [HttpClientModule, PokemonModule],
   controllers: [],
   providers: [],
 })
